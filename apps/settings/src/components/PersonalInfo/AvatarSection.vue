@@ -26,11 +26,19 @@
 			:readable="avatar.readable"
 			:scope.sync="avatar.scope" />
 
-		<div v-if="!imgSrc" class="avatar__preview">
-			<span v-if="loading" class="icon-loading" />
-			<img v-else
-				class="cropped-image"
-				:src="avatarUrl">
+		<div v-if="!cropping" class="avatar__preview">
+			<Avatar
+				:user="userId"
+				:aria-label="t('settings', 'Your profile picture')"
+				:disabled-menu="true"
+				:disabled-tooltip="true"
+				:show-user-status="false"
+				:size="180"
+				:key="avatarKey"
+			/>
+			<Button
+				@click="refreshAvatar"
+			/>
 
 			<template v-if="avatarChangeSupported">
 				<div class="avatar__buttons">
@@ -95,6 +103,7 @@ import { getFilePickerBuilder } from '@nextcloud/dialogs'
 import { getCurrentUser } from '@nextcloud/auth'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
+import { emit, subscribe } from '@nextcloud/event-bus'
 import 'cropperjs/dist/cropper.css'
 
 import Upload from 'vue-material-design-icons/Upload'
@@ -131,16 +140,25 @@ export default {
 		return {
 			avatar: { ...avatar, readable: NAME_READABLE_ENUM[avatar.name] },
 			avatarChangeSupported,
-			avatarUrl: null,
-			data: null,
 			imgSrc: null,
-			loading: false,
+			cropping: false,
+			userId: getCurrentUser().uid,
+			displayName: getCurrentUser().displayName,
+			avatarKey: 'key',
 		}
 	},
 
-	beforeMount() {
-		this.updateAvatar()
+	created() {
+		subscribe('settings:display-name:updated', this.handleDisplayNameUpdate)
+		subscribe('settings:avatar:updated', this.handleAvatarUpdate)
+		// FIXME refresh all other avatars on the page when updated
 	},
+
+	beforeDestroy() {
+		unsubscribe('settings:display-name:updated', this.handleDisplayNameUpdate)
+		unsubscribe('settings:avatar:updated', this.handleAvatarUpdate)
+	},
+
 
 	computed: {
 		inputId() {
@@ -149,6 +167,27 @@ export default {
 	},
 
 	methods: {
+		handleDisplayNameUpdate(displayName) {
+			this.avatarKey = displayName
+
+			// FIXME update the avatar version only when a refresh is needed
+			// If displayName based and displayName updated: refresh
+			// If displayName based and image updated: refresh
+			// If image and image updated: refresh
+			// If image and displayName updated: do not refresh
+			oc_userconfig.avatar.version = displayName
+		},
+
+		handleAvatarUpdate(timestamp) {
+			this.avatarKey = timestamp
+		},
+
+		refreshAvatar() {
+			this.avatarKey = Math.random().toString(36).substring(2)
+			oc_userconfig.avatar.version = this.avatarKey
+			console.log(`avatar key: ${this.avatarKey}`)
+		},
+
 		cropImage() {
 			this.imgSrc = null
 			this.saveAvatar()
@@ -167,6 +206,8 @@ export default {
 					this.$nextTick(() => this.$refs.cropper.replace(event.target.result))
 				}
 				reader.readAsDataURL(file)
+				emit('settings:avatar:updated', Date.now())
+				// FIXME emit event when avatar image has been updated and refresh all avatars on the page
 			} else {
 				alert('Sorry, FileReader API not supported')
 			}
@@ -177,7 +218,6 @@ export default {
 		},
 
 		saveAvatar() {
-			this.loading = true
 			this.$refs.cropper.getCroppedCanvas().toBlob((blob) => {
 				const formData = new FormData()
 				formData.append('files[]', blob)
@@ -186,7 +226,6 @@ export default {
 						'Content-Type': 'multipart/form-data',
 					},
 				}).then(() => {
-					this.updateAvatar()
 				})
 			})
 		},
@@ -197,24 +236,9 @@ export default {
 			this.imgSrc = generateUrl('/avatar/tmp') + '?requesttoken=' + encodeURIComponent(OC.requestToken) + '#' + Math.floor(Math.random() * 1000)
 		},
 
-		updateAvatar() {
-			this.loading = true
-			const newAvatarUrl = generateUrl('/avatar/') + getCurrentUser().uid + '/256?v=' + Date.now()
-			const img = new Image()
-			img.onload = () => {
-				this.loading = false
-				this.avatarUrl = newAvatarUrl
-				oc_userconfig.avatar.version = Date.now()
-			}
-			img.src = newAvatarUrl
-			// FIXME emit an event to update all avatars on the page here
-		},
-
 		async removeAvatar() {
-			this.loading = true
 			await axios.delete(generateUrl('/avatar/'))
 			window.oc_userconfig.avatar.generated = true
-			this.updateAvatar()
 		},
 	},
 }
