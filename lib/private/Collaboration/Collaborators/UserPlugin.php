@@ -146,7 +146,7 @@ class UserPlugin implements ISearchPlugin {
 			if ($this->shareeEnumerationPhone) {
 				$usersTmp = $this->userManager->searchKnownUsersByDisplayName($currentUserId, $search, $limit, $offset);
 			} else {
-				$usersTmp = $this->userManager->searchDisplayName($search, $limit, $offset);
+				//$usersTmp = $this->userManager->searchDisplayName($search, $limit, $offset);
 			}
 			foreach ($usersTmp as $user) {
 				if ($user->isEnabled()) { // Don't keep deactivated users
