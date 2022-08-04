@@ -49,7 +49,7 @@
 			<label for="webdavurl"><?php p($l->t('WebDAV')); ?></label>
 			<input id="webdavurl" type="text" readonly="readonly"
 				   value="<?php p($_['webdav_url']); ?>"/>
-			<em><a href="https://wiki.leviia.com" target="_blank" rel="noreferrer noopener"><?php p($l->t('Use this address to access your Files via WebDAV')) ?> ↗</a></em>
+			<em style="display: none;"><a href="https://wiki.leviia.com" target="_blank" rel="noreferrer noopener"><?php p($l->t('Use this address to access your Files via WebDAV')) ?> ↗</a></em>
 		</div>
 	</div>
 
