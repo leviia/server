@@ -1,0 +1,14 @@
+FROM nextcloud:24.0.3
+
+RUN apt-get update && apt-get install -y ffmpeg imagemagick ghostscript nano sudo less;
+
+COPY nextcloud/nextcloud.tar.bz2 nextcloud.tar.bz2
+
+RUN rm -rf /usr/src/*
+RUN mkdir -p /usr/src/nextcloud
+RUN tar -xjf nextcloud.tar.bz2 -C /usr/src/nextcloud
+RUN rm nextcloud.tar.bz2
+RUN rm -rf "$GNUPGHOME" /usr/src/nextcloud/updater
+RUN mkdir -p /usr/src/nextcloud/data
+RUN mkdir -p /usr/src/nextcloud/custom_apps
+RUN chmod +x /usr/src/nextcloud/occ

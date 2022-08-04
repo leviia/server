@@ -160,3 +160,5 @@ tests/acceptance/vendor/
 composer.phar
 /lib/composer/bin
 /vendor-bin/**/vendor
+
+/nextcloud

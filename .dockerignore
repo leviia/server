@@ -1,0 +1,4 @@
+./*
+!nextcloud/nextcloud.tar.bz2
+!entrypoint.sh
+!.dockerignore
