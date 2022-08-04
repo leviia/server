@@ -7,7 +7,7 @@ style('federatedfilesharing', 'settings-admin');
 
 <?php if ($_['internalOnly'] === false): ?>
 
-<div id="fileSharingSettings" class="section">
+<div id="fileSharingSettings" class="section" style="display: none;">
 	<h2>
 		<?php p($l->t('Federated Cloud Sharing'));?>
 	</h2>

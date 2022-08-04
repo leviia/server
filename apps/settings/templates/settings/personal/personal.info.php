@@ -240,16 +240,16 @@ script('settings', [
 			</form>
 		</div>
 		<?php if ($_['profileEnabledGlobally']) : ?>
-			<div class="personal-settings-setting-box">
+			<div class="personal-settings-setting-box" style="display: none;">
 				<div id="vue-organisation-section"></div>
 			</div>
-			<div class="personal-settings-setting-box">
+			<div class="personal-settings-setting-box" style="display: none;">
 				<div id="vue-role-section"></div>
 			</div>
-			<div class="personal-settings-setting-box">
+			<div class="personal-settings-setting-box" style="display: none;">
 				<div id="vue-headline-section"></div>
 			</div>
-			<div class="personal-settings-setting-box">
+			<div class="personal-settings-setting-box" style="display: none;">
 				<div id="vue-biography-section"></div>
 			</div>
 		<?php endif; ?>
@@ -257,7 +257,7 @@ script('settings', [
 
 	<div class="profile-settings-container">
 		<?php if ($_['profileEnabledGlobally']) : ?>
-			<div class="personal-settings-setting-box">
+			<div class="personal-settings-setting-box" style="display: none;">
 				<div id="vue-profile-section"></div>
 			</div>
 		<?php endif; ?>
@@ -309,7 +309,7 @@ script('settings', [
 </div>
 
 <?php if ($_['profileEnabledGlobally']) : ?>
-	<div class="personal-settings-section">
+	<div class="personal-settings-section" style="display: none;">
 		<div id="vue-profile-visibility-section"></div>
 	</div>
 <?php endif; ?>

@@ -36,7 +36,11 @@ script('files', 'jquery.fileupload');
 		<?php
 		}
 		foreach ($_['forms']['personal'] as $form) {
-			if (isset($form['anchor'])) {
+			if (isset($form['anchor'])
+			&& $form['anchor'] !== 'admindelegation'
+			&& $form['anchor'] !== 'workflow'
+			&& $form['anchor'] !== 'sharing'
+			&& $form['anchor'] !== 'groupware') {
 				$anchor = \OC::$server->getURLGenerator()->linkToRoute('settings.PersonalSettings.index', ['section' => $form['anchor']]);
 				$class = 'nav-icon-' . $form['anchor'];
 				$sectionName = $form['section-name'];
@@ -63,7 +67,10 @@ script('files', 'jquery.fileupload');
 			<?php
 		}
 		foreach ($_['forms']['admin'] as $form) {
-			if (isset($form['anchor'])) {
+			if (isset($form['anchor'])
+			&& $form['anchor'] !== 'admindelegation'
+			&& $form['anchor'] !== 'workflow'
+			&& $form['anchor'] !== 'groupware') {
 				$anchor = \OC::$server->getURLGenerator()->linkToRoute('settings.AdminSettings.index', ['section' => $form['anchor']]);
 				$class = 'nav-icon-' . $form['anchor'];
 				$sectionName = $form['section-name'];

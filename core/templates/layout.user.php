@@ -43,6 +43,21 @@ $getUserAvatar = static function (int $size) use ($_): string {
 		#contactsmenu-menu .content .footer {
 			display: none;
 		}
+		#security-webauthn {
+			display: none;
+		}
+		#oauth2 {
+			display: none;
+		}
+		a[href$="settings/user/groupware"] {
+			display: none !important;
+		}
+		a[href$="apps/photos/maps"] {
+			display: none !important;
+		}
+		.app-photos .app-navigation .app-navigation-entry {
+			min-height: 0;
+		}
 		</style>
 	</head>
 	<body id="<?php p($_['bodyid']);?>">
