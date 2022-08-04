@@ -34,6 +34,7 @@
         <a style="display: none;" target="_blank" class="icon-info svg" title="" href="https://api.onlyoffice.com/editors/nextcloud" data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
 
+<div style="display: none;">
     <h2><?php p($l->t("Server settings")) ?></h2>
 
     <div id="onlyofficeAddrSettings">
@@ -88,6 +89,8 @@
             <?php } ?>
         </div>
     </div>
+
+</div>
 
 </div>
 
