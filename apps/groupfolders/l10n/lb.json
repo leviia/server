@@ -1,0 +1,10 @@
+{ "translations": {
+    "Create" : "Erstellen",
+    "Delete" : "Läschen",
+    "Share" : "Deelen",
+    "Group" : "Grupp",
+    "Folder name" : "Dossiers Numm:",
+    "Groups" : "Gruppen",
+    "Quota" : "Quota"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
