@@ -32,7 +32,7 @@
 	<?php if ($_['sharingAppEnabled'] === false) { ?>
 		<p class="warning"><?php p($l->t('You need to enable the File sharing App.')); ?></p>
 	<?php } else { ?>
-		<a target="_blank" rel="noreferrer noopener" class="icon-info"
+		<a style="display: none;" target="_blank" rel="noreferrer noopener" class="icon-info"
 		   title="<?php p($l->t('Open documentation'));?>"
 		   href="<?php p(link_to_docs('admin-sharing')); ?>"></a>
 	<div>

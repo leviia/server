@@ -54,7 +54,7 @@ $mail_sendmailmode = [
 
 ?>
 
-<div class="section" id="mail_general_settings">
+<div class="section" id="mail_general_settings" style="display: none;">
 	<form id="mail_general_settings_form" class="mail_settings">
 		<h2><?php p($l->t('Email server'));?></h2>
 		<a target="_blank" rel="noreferrer noopener" class="icon-info"

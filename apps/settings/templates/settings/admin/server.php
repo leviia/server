@@ -67,7 +67,7 @@ script('settings', [
 			<?php p($l->t("Background job didn’t run yet!"));
 		} ?>
 	</p>
-	<a target="_blank" rel="noreferrer noopener" class="icon-info"
+	<a style="display: none;" target="_blank" rel="noreferrer noopener" class="icon-info"
 	   title="<?php p($l->t('Open documentation'));?>"
 	   href="<?php p(link_to_docs('admin-background-jobs')); ?>"></a>
 
