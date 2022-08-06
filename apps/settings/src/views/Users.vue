@@ -31,6 +31,7 @@
 				@keyup.space="showNewUserMenu" />
 			<template #list>
 				<AppNavigationItem id="addgroup"
+					v-if="!displayFamille"
 					ref="addGroup"
 					:edit-placeholder="t('settings', 'Enter group name')"
 					:editable="true"
@@ -248,6 +249,9 @@ export default {
 		},
 		settings() {
 			return this.$store.getters.getServerData
+		},
+		displayFamille() {
+			return location.host === "cloud.leviia.com" && !this.settings.isAdmin
 		},
 
 		// default quota
