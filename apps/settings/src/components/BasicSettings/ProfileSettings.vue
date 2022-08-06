@@ -22,6 +22,7 @@
 
 <template>
 	<div id="profile-settings"
+		style="display: none;"
 		class="section">
 		<h2 class="inlineblock">
 			{{ t('settings', 'Profile') }}
