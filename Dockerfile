@@ -141,3 +141,4 @@ RUN mkdir -p /var/www/html/data
 RUN mkdir -p /var/www/html/custom_apps
 RUN chmod +x /var/www/html/occ
 RUN chown -R www-data:root /var/www/html
+RUN echo 'LimitRequestBody 0' >> "/etc/apache2/conf-enabled/nextcloud-apache.conf"
