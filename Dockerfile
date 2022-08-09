@@ -129,6 +129,9 @@ CMD ["apache2-foreground"]
 
 RUN apt-get update && apt-get install -y ffmpeg imagemagick ghostscript nano sudo less;
 
+## see https://github.com/nextcloud/docker/issues/1796
+RUN echo 'LimitRequestBody 0' >> "/etc/apache2/conf-enabled/nextcloud-apache.conf";
+
 COPY nextcloud/nextcloud.tar.bz2 nextcloud.tar.bz2
 
 # RUN rm -rf /var/www/html/*;\
